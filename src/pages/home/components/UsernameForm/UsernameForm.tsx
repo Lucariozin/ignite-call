@@ -26,10 +26,14 @@ export const UsernameForm = () => {
   return (
     <>
       <Container as="form" onSubmit={handleSubmit(handleReserveUsername)}>
-        <TextInput prefix="ignitecall.com/" {...register('username')} />
+        <TextInput
+          prefix="ignitecall.com/"
+          placeholder="seu-usuario"
+          {...register('username')}
+        />
 
-        <Button>
-          Reservar <ArrowRight />
+        <Button type="submit">
+          Reservar <ArrowRight weight="bold" />
         </Button>
       </Container>
 
