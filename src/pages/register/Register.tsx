@@ -1,14 +1,8 @@
-import { ArrowRight } from 'phosphor-react'
+import { Heading, MultiStep, Text } from '@ignite-ui-lucariozin/react'
 
-import {
-  Button,
-  Heading,
-  MultiStep,
-  Text,
-  TextInput,
-} from '@ignite-ui-lucariozin/react'
+import { RegisterForm } from './components/RegisterForm'
 
-import { Container, Header, RegisterForm } from './Register.styles'
+import { Container, Header } from './Register.styles'
 
 const Register = () => {
   return (
@@ -24,21 +18,7 @@ const Register = () => {
         <MultiStep size={4} currentStep={1} />
       </Header>
 
-      <RegisterForm as="form">
-        <Text as="label" size="sm">
-          Nome de usuário
-          <TextInput prefix="ignitecall.com/" placeholder="seu-usuario" />
-        </Text>
-
-        <Text as="label" size="sm">
-          Nome completo
-          <TextInput placeholder="Seu nome" />
-        </Text>
-
-        <Button type="submit">
-          Próximo passo <ArrowRight weight="bold" />
-        </Button>
-      </RegisterForm>
+      <RegisterForm />
     </Container>
   )
 }

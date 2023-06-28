@@ -10,14 +10,14 @@ import {
   DefaultMessage,
 } from './UsernameForm.styles'
 
-import { resolver, UsernameFormFields } from './zodResolver'
+import { resolver, UsernameFormData } from './zodResolver'
 
 export const UsernameForm = () => {
-  const { register, handleSubmit, formState } = useForm<UsernameFormFields>({
+  const { register, handleSubmit, formState } = useForm<UsernameFormData>({
     resolver,
   })
 
-  const handleReserveUsername = (data: UsernameFormFields) => {
+  const handleReserveUsername = (data: UsernameFormData) => {
     console.log(data)
   }
 
