@@ -1,4 +1,6 @@
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { useUser } from '@/contexts/User'
 
 import { ArrowRight } from 'phosphor-react'
 import { Button, TextInput } from '@ignite-ui-lucariozin/react'
@@ -13,12 +15,20 @@ import {
 import { resolver, UsernameFormData } from './zodResolver'
 
 export const UsernameForm = () => {
+  const router = useRouter()
+
+  const { setUsername } = useUser()
+
   const { register, handleSubmit, formState } = useForm<UsernameFormData>({
     resolver,
   })
 
-  const handleReserveUsername = (data: UsernameFormData) => {
-    console.log(data)
+  const handleReserveUsername = async (data: UsernameFormData) => {
+    const { username } = data
+
+    setUsername(username)
+
+    await router.push('/register')
   }
 
   const usernameErrorMessage = formState.errors.username?.message

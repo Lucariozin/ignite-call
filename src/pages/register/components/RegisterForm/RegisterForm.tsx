@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { useUser } from '@/contexts/User'
 
 import { ArrowRight } from 'phosphor-react'
 
@@ -9,7 +10,10 @@ import { Container, ErrorMessage, NextStepButton } from './RegisterForm.styles'
 import { resolver, RegisterFormData } from './zodResolver'
 
 export const RegisterForm = () => {
+  const { username } = useUser()
+
   const { register, handleSubmit, formState } = useForm<RegisterFormData>({
+    defaultValues: { username: username ?? '' },
     resolver,
   })
 
