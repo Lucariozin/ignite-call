@@ -1,10 +1,11 @@
+import { api } from '@/services/api'
+
 import { useForm } from 'react-hook-form'
 import { useUser } from '@/contexts/User'
 
 import { ArrowRight } from 'phosphor-react'
 
 import { Text, TextInput } from '@ignite-ui-lucariozin/react'
-
 import { Container, ErrorMessage, NextStepButton } from './RegisterForm.styles'
 
 import { resolver, RegisterFormData } from './zodResolver'
@@ -17,8 +18,10 @@ export const RegisterForm = () => {
     resolver,
   })
 
-  const handleCreateProfile = (data: RegisterFormData) => {
-    console.log(data)
+  const handleCreateProfile = async ({ name, username }: RegisterFormData) => {
+    const response = await api.createUser({ name, username })
+
+    console.log(response)
   }
 
   const usernameErrorMessage = formState.errors.username?.message
