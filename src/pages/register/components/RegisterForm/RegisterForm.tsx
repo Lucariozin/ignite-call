@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import { api } from '@/services/api'
 
 import { useForm } from 'react-hook-form'
@@ -11,6 +13,8 @@ import { Container, ErrorMessage, NextStepButton } from './RegisterForm.styles'
 import { resolver, RegisterFormData } from './zodResolver'
 
 export const RegisterForm = () => {
+  const router = useRouter()
+
   const { username } = useUser()
 
   const { register, handleSubmit, formState } = useForm<RegisterFormData>({
@@ -21,7 +25,9 @@ export const RegisterForm = () => {
   const handleCreateProfile = async ({ name, username }: RegisterFormData) => {
     const response = await api.createUser({ name, username })
 
-    console.log(response)
+    if (response.status !== 'success' || !response.data) return
+
+    await router.push('/register/connect-calendar')
   }
 
   const usernameErrorMessage = formState.errors.username?.message
