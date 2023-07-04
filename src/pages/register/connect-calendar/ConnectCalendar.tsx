@@ -1,5 +1,6 @@
-import { ArrowRight } from 'phosphor-react'
+import { signIn, useSession } from 'next-auth/react'
 
+import { ArrowRight } from 'phosphor-react'
 import { Button, Heading, MultiStep, Text } from '@ignite-ui-lucariozin/react'
 
 import {
@@ -10,6 +11,12 @@ import {
 } from './ConnectCalendar.styles'
 
 const ConnectCalendar = () => {
+  const { data } = useSession()
+
+  console.log(data)
+
+  const handleConnectCalendar = () => signIn('google')
+
   return (
     <Container>
       <Header>
@@ -27,7 +34,12 @@ const ConnectCalendar = () => {
         <ConnectGoogleCalendar>
           <Text as="span">Google Agenda</Text>
 
-          <Button type="button" variant="secondary" size="sm">
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            onClick={handleConnectCalendar}
+          >
             Conectar <ArrowRight weight="bold" />
           </Button>
         </ConnectGoogleCalendar>
