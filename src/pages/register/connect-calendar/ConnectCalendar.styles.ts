@@ -33,3 +33,8 @@ export const ConnectGoogleCalendar = styled(Box, {
 
   padding: '$4 $6',
 })
+
+export const ErrorMessage = styled(Text, {
+  color: '#F75A68',
+  marginBottom: '$2',
+})
