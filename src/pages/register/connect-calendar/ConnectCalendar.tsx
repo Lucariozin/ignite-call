@@ -19,6 +19,10 @@ const ConnectCalendar = () => {
 
   const handleConnectCalendar = async () => await signIn('google')
 
+  const handleNextStep = async () => {
+    await router.push('/register/time-intervals')
+  }
+
   const isAuthenticated = status === 'authenticated'
   const hasAuthError = !!router.query?.error
 
@@ -67,7 +71,11 @@ const ConnectCalendar = () => {
           </ErrorMessage>
         )}
 
-        <Button type="button" disabled={!isAuthenticated}>
+        <Button
+          type="button"
+          disabled={!isAuthenticated}
+          onClick={handleNextStep}
+        >
           Próximo passo <ArrowRight weight="bold" />
         </Button>
       </ConnectGoogleCalendarContainer>

@@ -46,6 +46,13 @@ export const buildNextAuthOptions = (
 
         return redirectErrorUrl
       },
+
+      session: async ({ session, user }) => {
+        return {
+          ...session,
+          user,
+        }
+      },
     },
   }
 
