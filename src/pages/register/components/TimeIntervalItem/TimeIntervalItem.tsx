@@ -1,55 +1,81 @@
-import { useState } from 'react'
 import { Checkbox, Text } from '@ignite-ui-lucariozin/react'
 
 import { formatDayOfWeek } from '@/utils/formatDayOfWeek'
 
-import { HoursInput } from '../HoursInput'
+import { HourInput } from '../HourInput'
 
 import { WeekDay, Container, Schedules } from './TimeIntervalItem.styles'
 
-import type { DayOfWeekInEnglish } from '@/@types/daysOfWeek'
+import type { TimeInterval } from '../../time-intervals/TimeIntervals.types'
 
 interface TimeIntervalItemProps {
-  day: DayOfWeekInEnglish
+  day: string
+  endHour: number
+  startHour: number
   available: boolean
 
-  toggleTimeIntervalAvailability: (day: DayOfWeekInEnglish) => void
+  setTimeInterval: (params: { day: string; timeInterval: TimeInterval }) => void
 }
 
 export const TimeIntervalItem = ({
   day,
+  endHour,
+  startHour,
   available,
-  toggleTimeIntervalAvailability,
+  setTimeInterval,
 }: TimeIntervalItemProps) => {
-  const [startHour, setStartHour] = useState('')
-  const [endHour, setEndHour] = useState('')
-
   const formattedDayOfWeek = formatDayOfWeek(day)
 
-  const handleToggleTimeIntervalAvailability = () => {
-    toggleTimeIntervalAvailability(day)
+  const handleToggleAvailability = () => {
+    const newTimeInterval = {
+      startHour,
+      endHour,
+      available: !available,
+    }
+
+    setTimeInterval({ day, timeInterval: newTimeInterval })
   }
+
+  const setStartHour = (newStartHour: string) => {
+    const newTimeInterval = {
+      startHour: Number(newStartHour),
+      endHour,
+      available,
+    }
+
+    setTimeInterval({ day, timeInterval: newTimeInterval })
+  }
+
+  const setEndHour = (newEndHour: string) => {
+    const newTimeInterval = {
+      startHour,
+      endHour: Number(newEndHour),
+      available,
+    }
+
+    setTimeInterval({ day, timeInterval: newTimeInterval })
+  }
+
+  const formattedStartHour = String(startHour)
+  const formattedEndHour = String(endHour)
 
   return (
     <Container>
       <WeekDay>
-        <Checkbox
-          checked={available}
-          onClick={handleToggleTimeIntervalAvailability}
-        />
+        <Checkbox checked={available} onClick={handleToggleAvailability} />
 
         <Text>{formattedDayOfWeek}</Text>
       </WeekDay>
 
       <Schedules>
-        <HoursInput
-          value={startHour}
+        <HourInput
+          value={formattedStartHour}
           setValue={setStartHour}
           disabled={!available}
         />
 
-        <HoursInput
-          value={endHour}
+        <HourInput
+          value={formattedEndHour}
           setValue={setEndHour}
           disabled={!available}
         />

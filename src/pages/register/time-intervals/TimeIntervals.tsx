@@ -13,78 +13,62 @@ import {
   TimeIntervalsContainer,
 } from './TimeIntervals.styles'
 
-import type { DayOfWeekInEnglish } from '@/@types/daysOfWeek'
-
-type TimeInterval = {
-  available: boolean
-  startHour: number
-  endHour: number
-}
-
-type TimeIntervalsState = {
-  monday: TimeInterval
-  tuesday: TimeInterval
-  wednesday: TimeInterval
-  thursday: TimeInterval
-  friday: TimeInterval
-  saturday: TimeInterval
-  sunday: TimeInterval
-}
+import type { SetTimeInterval, TimeIntervalsState } from './TimeIntervals.types'
 
 const TimeIntervals = () => {
   const [timeIntervals, setTimeIntervals] = useState<TimeIntervalsState>({
-    monday: {
+    1: {
       available: false,
-      startHour: 0,
-      endHour: 0,
+      startHour: 8,
+      endHour: 18,
     },
-    tuesday: {
-      available: false,
-      startHour: 0,
-      endHour: 0,
+    2: {
+      available: true,
+      startHour: 8,
+      endHour: 18,
     },
-    wednesday: {
-      available: false,
-      startHour: 0,
-      endHour: 0,
+    3: {
+      available: true,
+      startHour: 8,
+      endHour: 18,
     },
-    thursday: {
-      available: false,
-      startHour: 0,
-      endHour: 0,
+    4: {
+      available: true,
+      startHour: 8,
+      endHour: 18,
     },
-    friday: {
-      available: false,
-      startHour: 0,
-      endHour: 0,
+    5: {
+      available: true,
+      startHour: 8,
+      endHour: 18,
     },
-    saturday: {
-      available: false,
-      startHour: 0,
-      endHour: 0,
+    6: {
+      available: true,
+      startHour: 8,
+      endHour: 18,
     },
-    sunday: {
+    7: {
       available: false,
-      startHour: 0,
-      endHour: 0,
+      startHour: 8,
+      endHour: 18,
     },
   })
 
-  const toggleTimeIntervalAvailability = (day: DayOfWeekInEnglish) => {
-    const timeInterval = timeIntervals[day]
+  const setTimeInterval: SetTimeInterval = ({ day, timeInterval }) => {
+    const existingTimeInterval = timeIntervals[day]
 
-    if (!timeInterval) return
+    if (!existingTimeInterval) return
 
     const newTimeIntervals: TimeIntervalsState = {
       ...timeIntervals,
 
-      [day]: { ...timeInterval, available: !timeInterval.available },
+      [day]: timeInterval,
     }
 
     setTimeIntervals(newTimeIntervals)
   }
 
-  const days = Object.keys(timeIntervals ?? {}) as DayOfWeekInEnglish[]
+  const days = Object.keys(timeIntervals)
 
   return (
     <Container>
@@ -108,8 +92,10 @@ const TimeIntervals = () => {
               <TimeIntervalItem
                 key={day}
                 day={day}
+                endHour={timeInterval.endHour}
+                startHour={timeInterval.startHour}
                 available={timeInterval.available}
-                toggleTimeIntervalAvailability={toggleTimeIntervalAvailability}
+                setTimeInterval={setTimeInterval}
               />
             )
           })}

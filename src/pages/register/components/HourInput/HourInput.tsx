@@ -2,21 +2,21 @@ import type { ChangeEvent, FocusEvent, KeyboardEvent } from 'react'
 
 import { Text } from '@ignite-ui-lucariozin/react'
 
-import { Container, Input } from './HoursInput.styles'
+import { Container, Input } from './HourInput.styles'
 
-interface HoursInputProps {
+interface HourInputProps {
   value: string
   disabled?: boolean
 
   setValue: (value: string) => void
 }
 
-export const HoursInput = ({
+export const HourInput = ({
   value,
   disabled = false,
 
   setValue,
-}: HoursInputProps) => {
+}: HourInputProps) => {
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     const typedValue = event.target.value
 

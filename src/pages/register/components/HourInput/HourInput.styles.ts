@@ -31,6 +31,7 @@ export const Input = styled('input', {
 
   fontSize: '$sm',
   fontFamily: '$default',
+  textAlign: 'right',
 
   appearance: 'textfield',
 
