@@ -6,28 +6,35 @@ import { Container, Input } from './HoursInput.styles'
 
 interface HoursInputProps {
   value: string
+  disabled?: boolean
+
   setValue: (value: string) => void
 }
 
-export const HoursInput = ({ value, setValue }: HoursInputProps) => {
+export const HoursInput = ({
+  value,
+  disabled = false,
+
+  setValue,
+}: HoursInputProps) => {
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     const typedValue = event.target.value
 
-    const numberTypedValue = Number(typedValue)
+    const typedValueAsNumber = Number(typedValue)
 
     if (typedValue.includes(' ')) return
     if (typedValue.length > 2) return
-    if (isNaN(numberTypedValue)) return
+    if (isNaN(typedValueAsNumber)) return
 
-    if (numberTypedValue > 23) return setValue('23')
+    if (typedValueAsNumber > 23) return setValue('23')
 
-    if (numberTypedValue < 0) return setValue('00')
+    if (typedValueAsNumber < 0) return setValue('00')
 
     setValue(typedValue)
   }
 
   const handleFilterCharacters = (event: KeyboardEvent<HTMLInputElement>) => {
-    const unauthorizedCharacteres = ['e', 'E', '-']
+    const unauthorizedCharacteres = ['e', 'E', '-', '+', ',', '.']
 
     const keyPressed = event.key
 
@@ -57,6 +64,7 @@ export const HoursInput = ({ value, setValue }: HoursInputProps) => {
         onChange={handleChangeValue}
         onKeyDown={handleFilterCharacters}
         onBlur={handleNormalizeDisplayedValue}
+        disabled={disabled}
       />
 
       <Text size="sm">:00h</Text>

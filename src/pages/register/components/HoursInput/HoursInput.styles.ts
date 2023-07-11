@@ -11,8 +11,15 @@ export const Container = styled('div', {
   borderRadius: '$sm',
   backgroundColor: '$gray900',
 
+  transition: 'opacity 0.2s',
+
   [`& > ${Text}`]: {
     lineHeight: '$shorter',
+  },
+
+  '&:has(input:disabled)': {
+    cursor: 'not-allowed',
+    opacity: '0.5',
   },
 })
 
@@ -26,6 +33,14 @@ export const Input = styled('input', {
   fontFamily: '$default',
 
   appearance: 'textfield',
+
+  '&::placeholder': {
+    transition: 'color 0.2s',
+  },
+
+  '&:disabled::placeholder': {
+    color: '$gray100',
+  },
 
   '-moz-appearance': 'textfield',
 
