@@ -19,6 +19,8 @@ export const Header = styled('header', {
 })
 
 export const TimeIntervalsContainer = styled(Box, {
+  position: 'relative',
+
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
@@ -29,4 +31,11 @@ export const TimeIntervalsContainer = styled(Box, {
 export const Intervals = styled('div', {
   border: '1px solid $gray600',
   borderRadius: '$sm',
+})
+
+export const ErrorMessageContainer = styled('div', {
+  position: 'absolute',
+  top: '-$5',
+
+  width: 'calc(100% - $12)',
 })

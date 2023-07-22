@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { ErrorMessage, useErrorMessage } from './hooks/ErrorMessage'
+
 import { ArrowRight } from 'phosphor-react'
 
 import { Button, Heading, MultiStep, Text } from '@ignite-ui-lucariozin/react'
@@ -10,49 +12,21 @@ import {
   Header,
   Container,
   Intervals,
+  ErrorMessageContainer,
   TimeIntervalsContainer,
 } from './TimeIntervals.styles'
+
+import { defaultTimeIntervals } from './defaultTimeIntervals'
+import { validateTimeIntervals } from './validateTimeIntervals'
 
 import type { SetTimeInterval, TimeIntervalsState } from './TimeIntervals.types'
 
 const TimeIntervals = () => {
-  const [timeIntervals, setTimeIntervals] = useState<TimeIntervalsState>({
-    1: {
-      available: false,
-      startHour: 8,
-      endHour: 18,
-    },
-    2: {
-      available: true,
-      startHour: 8,
-      endHour: 18,
-    },
-    3: {
-      available: true,
-      startHour: 8,
-      endHour: 18,
-    },
-    4: {
-      available: true,
-      startHour: 8,
-      endHour: 18,
-    },
-    5: {
-      available: true,
-      startHour: 8,
-      endHour: 18,
-    },
-    6: {
-      available: true,
-      startHour: 8,
-      endHour: 18,
-    },
-    7: {
-      available: false,
-      startHour: 8,
-      endHour: 18,
-    },
-  })
+  const { showErrorMessage } = useErrorMessage()
+
+  const [timeIntervals, setTimeIntervals] = useState(defaultTimeIntervals)
+
+  const days = Object.keys(timeIntervals)
 
   const setTimeInterval: SetTimeInterval = ({ day, timeInterval }) => {
     const existingTimeInterval = timeIntervals[day]
@@ -68,7 +42,17 @@ const TimeIntervals = () => {
     setTimeIntervals(newTimeIntervals)
   }
 
-  const days = Object.keys(timeIntervals)
+  const handleNextStep = () => {
+    const validatedTimeIntervals = validateTimeIntervals(timeIntervals)
+
+    if (!validatedTimeIntervals.success) {
+      showErrorMessage({ message: 'Defina os dias que você estará disponível' })
+
+      return
+    }
+
+    console.log('timeIntervals', validatedTimeIntervals.data)
+  }
 
   return (
     <Container>
@@ -101,7 +85,11 @@ const TimeIntervals = () => {
           })}
         </Intervals>
 
-        <Button type="button">
+        <ErrorMessageContainer>
+          <ErrorMessage />
+        </ErrorMessageContainer>
+
+        <Button type="button" onClick={handleNextStep}>
           Próximo passo <ArrowRight weight="bold" />
         </Button>
       </TimeIntervalsContainer>
