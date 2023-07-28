@@ -17,7 +17,7 @@ import {
 } from './TimeIntervals.styles'
 
 import { defaultTimeIntervals } from './defaultTimeIntervals'
-import { validateTimeIntervals } from './validateTimeIntervals'
+import { validateTimeIntervals } from './validation/validateTimeIntervals'
 
 import type { SetTimeInterval, TimeIntervalsState } from './TimeIntervals.types'
 
@@ -43,15 +43,17 @@ const TimeIntervals = () => {
   }
 
   const handleNextStep = () => {
-    const validatedTimeIntervals = validateTimeIntervals(timeIntervals)
+    const validationResult = validateTimeIntervals(timeIntervals)
 
-    if (!validatedTimeIntervals.success) {
-      showErrorMessage({ message: 'Defina os dias que você estará disponível' })
+    if (validationResult.errors.length) {
+      const errorMessage = validationResult.errors[0].message
+
+      showErrorMessage({ message: errorMessage })
 
       return
     }
 
-    console.log('timeIntervals', validatedTimeIntervals.data)
+    console.log('validationResult', validationResult)
   }
 
   return (
