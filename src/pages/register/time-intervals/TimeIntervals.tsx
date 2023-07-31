@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { api } from '@/services/api'
+
 import { ErrorMessage, useErrorMessage } from './hooks/ErrorMessage'
 
 import { ArrowRight } from 'phosphor-react'
@@ -42,7 +44,7 @@ const TimeIntervals = () => {
     setTimeIntervals(newTimeIntervals)
   }
 
-  const handleNextStep = () => {
+  const handleNextStep = async () => {
     const validationResult = validateTimeIntervals(timeIntervals)
 
     if (validationResult.errors.length) {
@@ -53,7 +55,11 @@ const TimeIntervals = () => {
       return
     }
 
-    console.log('validationResult', validationResult)
+    const response = await api.saveUserTimeIntervals({
+      timeIntervals: validationResult.data,
+    })
+
+    console.log('OLHA A RESPONSE', response)
   }
 
   return (
