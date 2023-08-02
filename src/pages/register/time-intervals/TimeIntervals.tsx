@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { api } from '@/services/api'
 
+import { useRouter } from 'next/router'
 import { ErrorMessage, useErrorMessage } from './hooks/ErrorMessage'
 
 import { ArrowRight } from 'phosphor-react'
@@ -24,6 +25,8 @@ import { validateTimeIntervals } from './validation/validateTimeIntervals'
 import type { SetTimeInterval, TimeIntervalsState } from './TimeIntervals.types'
 
 const TimeIntervals = () => {
+  const router = useRouter()
+
   const { showErrorMessage } = useErrorMessage()
 
   const [timeIntervals, setTimeIntervals] = useState(defaultTimeIntervals)
@@ -59,7 +62,9 @@ const TimeIntervals = () => {
       timeIntervals: validationResult.data,
     })
 
-    console.log('OLHA A RESPONSE', response)
+    if (response.status !== 'success') return
+
+    await router.push('/register/update-profile')
   }
 
   return (

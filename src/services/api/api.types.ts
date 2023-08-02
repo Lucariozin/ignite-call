@@ -17,3 +17,11 @@ export type TimeInterval = {
 export type SaveUserTimeIntervals = (params: {
   timeIntervals: TimeInterval[]
 }) => Promise<DefaultResponse>
+
+type Profile = {
+  bio: string
+}
+
+export type UpdateUserProfile = (params: {
+  profile: Profile
+}) => Promise<DefaultResponse>

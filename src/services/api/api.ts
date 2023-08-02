@@ -1,6 +1,10 @@
 import { apiHTTP } from './api.config'
 
-import type { CreateUser, SaveUserTimeIntervals } from './api.types'
+import type {
+  CreateUser,
+  UpdateUserProfile,
+  SaveUserTimeIntervals,
+} from './api.types'
 
 const createUser: CreateUser = async ({ name, username }) => {
   try {
@@ -34,7 +38,23 @@ const saveUserTimeIntervals: SaveUserTimeIntervals = async ({
   }
 }
 
+const updateUserProfile: UpdateUserProfile = async ({ profile }) => {
+  try {
+    const body = { profile }
+
+    const response = await apiHTTP.put('/users/profile', body)
+
+    return {
+      data: response.data,
+      status: 'success',
+    }
+  } catch (error: any) {
+    return { data: error?.response?.data ?? null, status: 'failed' }
+  }
+}
+
 export const api = {
   createUser,
+  updateUserProfile,
   saveUserTimeIntervals,
 }

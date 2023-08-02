@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse, NextPageContext } from 'next'
 import type { Adapter, AdapterUser, AdapterSession } from 'next-auth/adapters'
 
 import { parseCookies, destroyCookie } from 'nookies'
@@ -7,8 +7,8 @@ import { prisma } from '../prisma'
 
 type CreateUser = (
   user: Omit<AdapterUser, 'id'>,
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextApiRequest | NextPageContext['req'],
+  res: NextApiResponse | NextPageContext['res'],
 ) => Promise<AdapterUser>
 
 const createUser: CreateUser = async (user, req, res) => {
@@ -241,8 +241,8 @@ const deleteSession: Adapter['deleteSession'] = async (sessionToken) => {
 }
 
 export const PrismaAdapter = (
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextApiRequest | NextPageContext['req'],
+  res: NextApiResponse | NextPageContext['res'],
 ): Adapter => {
   return {
     getUser,
