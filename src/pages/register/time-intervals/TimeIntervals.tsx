@@ -70,7 +70,7 @@ const TimeIntervals = () => {
   return (
     <Container>
       <Header>
-        <Heading as="h1">Quase lá</Heading>
+        <Heading as="h1">Defina sua disponibilidade</Heading>
 
         <Text>
           Defina o intervalo de horários que você está disponível em cada dia da

@@ -59,7 +59,7 @@ const UpdateProfile = ({ session }: UpdateProfileProps) => {
   return (
     <Container>
       <Header>
-        <Heading as="h1">Defina sua disponibilidade</Heading>
+        <Heading as="h1">Quase lá</Heading>
 
         <Text>Por último, uma breve descrição e uma foto de perfil.</Text>
 
