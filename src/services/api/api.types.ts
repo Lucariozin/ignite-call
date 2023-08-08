@@ -1,5 +1,5 @@
-type DefaultResponse = {
-  data: any
+type DefaultResponse<T = any> = {
+  data: T
   status: 'success' | 'failed'
 }
 
@@ -25,3 +25,14 @@ type Profile = {
 export type UpdateUserProfile = (params: {
   profile: Profile
 }) => Promise<DefaultResponse>
+
+export type GetProfileByUsername = (params: { username: string }) => Promise<
+  DefaultResponse<{
+    profile: {
+      name: string
+      username: string
+      avatarUrl: string
+      bio: string
+    }
+  }>
+>

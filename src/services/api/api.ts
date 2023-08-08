@@ -3,8 +3,24 @@ import { apiHTTP } from './api.config'
 import type {
   CreateUser,
   UpdateUserProfile,
+  GetProfileByUsername,
   SaveUserTimeIntervals,
 } from './api.types'
+
+const getProfileByUsername: GetProfileByUsername = async ({ username }) => {
+  try {
+    const url = `/users/profile/get-by-username/${username}`
+
+    const response = await apiHTTP.get(url)
+
+    return {
+      data: response.data,
+      status: 'success',
+    }
+  } catch (error: any) {
+    return { data: error?.response?.data ?? null, status: 'failed' }
+  }
+}
 
 const createUser: CreateUser = async ({ name, username }) => {
   try {
@@ -56,5 +72,6 @@ const updateUserProfile: UpdateUserProfile = async ({ profile }) => {
 export const api = {
   createUser,
   updateUserProfile,
+  getProfileByUsername,
   saveUserTimeIntervals,
 }
