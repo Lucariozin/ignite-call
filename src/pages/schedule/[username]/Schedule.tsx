@@ -2,9 +2,21 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import { api } from '@/services/api'
 
+import { CaretLeft, CaretRight } from 'phosphor-react'
 import { Avatar, Heading, Text } from '@ignite-ui-lucariozin/react'
 
-import { Container, ProfileContainer } from './Schedule.styles'
+import {
+  Calendar,
+  Container,
+  LeftColumn,
+  CalendarTitle,
+  CalendarHeader,
+  CalendarActions,
+  CalendarWeekDay,
+  CalendarWeekDays,
+  ProfileContainer,
+  CalendarWeekDayColumn,
+} from './Schedule.styles'
 
 type Profile = {
   name: string
@@ -27,6 +39,96 @@ const Schedule = ({ profile }: ScheduleProps) => {
 
         <Text>{profile.bio}</Text>
       </ProfileContainer>
+
+      <Calendar>
+        <LeftColumn>
+          <CalendarHeader>
+            <CalendarTitle>
+              <Text>Setembro</Text>
+
+              <Text>2022</Text>
+            </CalendarTitle>
+
+            <CalendarActions>
+              <CaretLeft size={20} />
+
+              <CaretRight size={20} />
+            </CalendarActions>
+          </CalendarHeader>
+
+          <CalendarWeekDays>
+            <CalendarWeekDayColumn>
+              <Text size="sm">DOM.</Text>
+
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+            </CalendarWeekDayColumn>
+
+            <CalendarWeekDayColumn>
+              <Text size="sm">SEG.</Text>
+
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+            </CalendarWeekDayColumn>
+
+            <CalendarWeekDayColumn>
+              <Text size="sm">TER.</Text>
+
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+            </CalendarWeekDayColumn>
+
+            <CalendarWeekDayColumn>
+              <Text size="sm">QUA.</Text>
+
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+            </CalendarWeekDayColumn>
+
+            <CalendarWeekDayColumn>
+              <Text size="sm">QUI.</Text>
+
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+            </CalendarWeekDayColumn>
+
+            <CalendarWeekDayColumn>
+              <Text size="sm">SEX.</Text>
+
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+            </CalendarWeekDayColumn>
+
+            <CalendarWeekDayColumn>
+              <Text size="sm">SÁB.</Text>
+
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+              <CalendarWeekDay />
+            </CalendarWeekDayColumn>
+          </CalendarWeekDays>
+        </LeftColumn>
+      </Calendar>
     </Container>
   )
 }
