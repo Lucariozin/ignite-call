@@ -69,28 +69,68 @@ export const CalendarActions = styled('div', {
   color: '$gray200',
 })
 
-export const CalendarWeekDays = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  gap: '$1',
-})
+export const ActionButton = styled('button', {
+  all: 'unset',
 
-export const CalendarWeekDayColumn = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '$1',
+  padding: '1px',
+  lineHeight: '0',
 
-  width: '100%',
+  cursor: 'pointer',
+  borderRadius: '50%',
 
-  [`& > ${Text}`]: {
-    color: '$gray200',
-    marginBottom: '$3',
+  transition: 'all 0.2s',
+
+  '&:hover': {
+    backgroundColor: '$igniteWeak',
+    filter: 'brightness(1.2)',
+  },
+
+  '&:focus-visible': {
+    boxShadow: '0 0 0 1px $colors$ignite500',
   },
 })
 
-export const CalendarWeekDay = styled('div', {
+export const CalendarWeekDays = styled('div', {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(7, 1fr)',
+  gap: '$1',
+
+  [`& > ${Text}`]: {
+    textAlign: 'center',
+    marginBottom: '$3',
+    color: '$gray200',
+  },
+})
+
+export const CalendarWeekDay = styled('button', {
+  all: 'unset',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
   width: '100%',
-  height: '50px',
-  backgroundColor: '$gray200',
+  aspectRatio: '1 / 1',
+
+  fontFamily: '$default',
+
+  backgroundColor: '$gray600',
+  borderRadius: '$sm',
+
+  cursor: 'pointer',
+  transition: 'all 0.1s',
+
+  '&:disabled': {
+    opacity: '0.5',
+    backgroundColor: 'transparent',
+    cursor: 'default',
+  },
+
+  '&:not(:disabled):hover': {
+    backgroundColor: '$gray500',
+  },
+
+  '&:focus-visible': {
+    boxShadow: '0 0 0 1px $colors$ignite500',
+  },
 })

@@ -9,13 +9,13 @@ import {
   Calendar,
   Container,
   LeftColumn,
+  ActionButton,
   CalendarTitle,
   CalendarHeader,
   CalendarActions,
   CalendarWeekDay,
   CalendarWeekDays,
   ProfileContainer,
-  CalendarWeekDayColumn,
 } from './Schedule.styles'
 
 type Profile = {
@@ -50,82 +50,66 @@ const Schedule = ({ profile }: ScheduleProps) => {
             </CalendarTitle>
 
             <CalendarActions>
-              <CaretLeft size={20} />
+              <ActionButton>
+                <CaretLeft size={20} />
+              </ActionButton>
 
-              <CaretRight size={20} />
+              <ActionButton>
+                <CaretRight size={20} />
+              </ActionButton>
             </CalendarActions>
           </CalendarHeader>
 
           <CalendarWeekDays>
-            <CalendarWeekDayColumn>
-              <Text size="sm">DOM.</Text>
+            <Text size="sm">DOM.</Text>
+            <Text size="sm">SEG.</Text>
+            <Text size="sm">TER.</Text>
+            <Text size="sm">QUA.</Text>
+            <Text size="sm">QUI.</Text>
+            <Text size="sm">SEX.</Text>
+            <Text size="sm">SÁB.</Text>
 
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-            </CalendarWeekDayColumn>
+            <CalendarWeekDay>1</CalendarWeekDay>
+            <CalendarWeekDay disabled>2</CalendarWeekDay>
+            <CalendarWeekDay>3</CalendarWeekDay>
+            <CalendarWeekDay />
+            <CalendarWeekDay />
 
-            <CalendarWeekDayColumn>
-              <Text size="sm">SEG.</Text>
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
 
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-            </CalendarWeekDayColumn>
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
 
-            <CalendarWeekDayColumn>
-              <Text size="sm">TER.</Text>
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
 
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-            </CalendarWeekDayColumn>
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
 
-            <CalendarWeekDayColumn>
-              <Text size="sm">QUA.</Text>
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
 
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-            </CalendarWeekDayColumn>
-
-            <CalendarWeekDayColumn>
-              <Text size="sm">QUI.</Text>
-
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-            </CalendarWeekDayColumn>
-
-            <CalendarWeekDayColumn>
-              <Text size="sm">SEX.</Text>
-
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-            </CalendarWeekDayColumn>
-
-            <CalendarWeekDayColumn>
-              <Text size="sm">SÁB.</Text>
-
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-              <CalendarWeekDay />
-            </CalendarWeekDayColumn>
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
+            <CalendarWeekDay />
           </CalendarWeekDays>
         </LeftColumn>
       </Calendar>
