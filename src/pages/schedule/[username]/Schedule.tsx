@@ -7,6 +7,8 @@ import { api } from '@/services/api'
 import { CaretLeft, CaretRight } from 'phosphor-react'
 import { Avatar, Heading, Text } from '@ignite-ui-lucariozin/react'
 
+import { SchedulingTimes } from './components/SchedulingTimes'
+
 import {
   Calendar,
   Container,
@@ -49,9 +51,7 @@ const Schedule = ({ profile }: ScheduleProps) => {
         <LeftColumn>
           <CalendarHeader>
             <CalendarTitle>
-              <Text>Setembro</Text>
-
-              <Text>2022</Text>
+              Setembro <span>2022</span>
             </CalendarTitle>
 
             <CalendarActions>
@@ -122,7 +122,9 @@ const Schedule = ({ profile }: ScheduleProps) => {
           </CalendarWeekDays>
         </LeftColumn>
 
-        <RightColumn>Hello People</RightColumn>
+        <RightColumn>
+          <SchedulingTimes />
+        </RightColumn>
       </Calendar>
     </Container>
   )

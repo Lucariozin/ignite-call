@@ -28,6 +28,7 @@ export const ProfileContainer = styled('div', {
 export const Calendar = styled('div', {
   display: 'flex',
   justifyContent: 'center',
+  alignItems: 'flex-start',
 
   width: '100%',
 
@@ -72,7 +73,7 @@ export const LeftColumn = styled(Box, {
 
   padding: '$6',
 
-  transition: 'margin 0.3s',
+  transition: 'margin 0.3s ease-in-out',
 })
 
 export const RightColumn = styled(Box, {
@@ -80,11 +81,23 @@ export const RightColumn = styled(Box, {
   width: '0',
 
   maxWidth: '17.5rem',
+  maxHeight: '30.45rem',
   padding: '$6',
 
   borderLeft: '1px solid $colors$gray600',
-
   transition: 'opacity 0.3s, width 0.5s',
+
+  overflowY: 'scroll',
+
+  '&::-webkit-scrollbar': {
+    width: '14px',
+  },
+
+  '&::-webkit-scrollbar-thumb': {
+    border: '5px solid $colors$gray800',
+    borderRadius: '$full',
+    background: '$gray500',
+  },
 })
 
 export const CalendarHeader = styled('div', {
@@ -93,14 +106,14 @@ export const CalendarHeader = styled('div', {
   justifyContent: 'space-between',
 })
 
-export const CalendarTitle = styled('div', {
+export const CalendarTitle = styled(Text, {
   display: 'flex',
   alignItems: 'center',
   gap: '$1',
 
   fontWeight: '$medium',
 
-  [`& > ${Text}:last-child`]: {
+  [`& > span`]: {
     color: '$gray200',
   },
 })
@@ -162,6 +175,7 @@ export const CalendarWeekDay = styled('button', {
   borderRadius: '$sm',
 
   cursor: 'pointer',
+  userSelect: 'none',
   transition: 'all 0.1s',
 
   '&:disabled': {
