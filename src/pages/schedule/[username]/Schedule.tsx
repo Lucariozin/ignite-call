@@ -1,5 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
+import { useState } from 'react'
+
 import { api } from '@/services/api'
 
 import { CaretLeft, CaretRight } from 'phosphor-react'
@@ -16,6 +18,7 @@ import {
   CalendarWeekDay,
   CalendarWeekDays,
   ProfileContainer,
+  RightColumn,
 } from './Schedule.styles'
 
 type Profile = {
@@ -30,6 +33,8 @@ interface ScheduleProps {
 }
 
 const Schedule = ({ profile }: ScheduleProps) => {
+  const [schedulingTimesIsOpen, setSchedulingTimesIsOpen] = useState(false)
+
   return (
     <Container>
       <ProfileContainer>
@@ -40,7 +45,7 @@ const Schedule = ({ profile }: ScheduleProps) => {
         <Text>{profile.bio}</Text>
       </ProfileContainer>
 
-      <Calendar>
+      <Calendar schedulingTimesIsOpen={schedulingTimesIsOpen}>
         <LeftColumn>
           <CalendarHeader>
             <CalendarTitle>
@@ -69,7 +74,11 @@ const Schedule = ({ profile }: ScheduleProps) => {
             <Text size="sm">SEX.</Text>
             <Text size="sm">SÁB.</Text>
 
-            <CalendarWeekDay>1</CalendarWeekDay>
+            <CalendarWeekDay
+              onClick={() => setSchedulingTimesIsOpen((state) => !state)}
+            >
+              1
+            </CalendarWeekDay>
             <CalendarWeekDay disabled>2</CalendarWeekDay>
             <CalendarWeekDay>3</CalendarWeekDay>
             <CalendarWeekDay />
@@ -112,6 +121,8 @@ const Schedule = ({ profile }: ScheduleProps) => {
             <CalendarWeekDay />
           </CalendarWeekDays>
         </LeftColumn>
+
+        <RightColumn>Hello People</RightColumn>
       </Calendar>
     </Container>
   )

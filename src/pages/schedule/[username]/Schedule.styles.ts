@@ -5,8 +5,6 @@ export const Container = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
 
-  maxWidth: '36.75rem',
-
   margin: '0 auto',
   marginTop: '6rem',
   padding: '0 $6',
@@ -27,21 +25,67 @@ export const ProfileContainer = styled('div', {
   },
 })
 
-export const Calendar = styled(Box, {
+export const Calendar = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+
   width: '100%',
+
+  margin: '0 auto',
   marginTop: '$6',
+
+  variants: {
+    schedulingTimesIsOpen: {
+      true: {
+        '& > div:first-child': {
+          borderRight: 'none',
+          borderTopRightRadius: '0',
+          borderBottomRightRadius: '0',
+        },
+
+        '& > div:last-child': {
+          display: 'block',
+
+          opacity: '1',
+          width: '100%',
+
+          borderTopLeftRadius: '0',
+          borderBottomLeftRadius: '0',
+        },
+      },
+      false: {
+        '& > div:first-child': {
+          marginLeft: '3.125rem',
+        },
+      },
+    },
+  },
 })
 
-export const LeftColumn = styled('div', {
+export const LeftColumn = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   gap: '$6',
 
   width: '100%',
   maxWidth: '33.75rem',
+
+  padding: '$6',
+
+  transition: 'margin 0.3s',
 })
 
-export const RightColumn = styled('div', {})
+export const RightColumn = styled(Box, {
+  opacity: '0',
+  width: '0',
+
+  maxWidth: '17.5rem',
+  padding: '$6',
+
+  borderLeft: '1px solid $colors$gray600',
+
+  transition: 'opacity 0.3s, width 0.5s',
+})
 
 export const CalendarHeader = styled('div', {
   display: 'flex',
