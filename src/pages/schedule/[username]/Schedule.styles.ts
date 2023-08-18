@@ -112,6 +112,7 @@ export const CalendarTitle = styled(Text, {
   gap: '$1',
 
   fontWeight: '$medium',
+  textTransform: 'capitalize',
 
   [`& > span`]: {
     color: '$gray200',

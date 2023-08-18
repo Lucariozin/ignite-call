@@ -2,6 +2,8 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import { useState } from 'react'
 
+import dayjs from 'dayjs'
+
 import { api } from '@/services/api'
 
 import { CaretLeft, CaretRight } from 'phosphor-react'
@@ -13,6 +15,7 @@ import {
   Calendar,
   Container,
   LeftColumn,
+  RightColumn,
   ActionButton,
   CalendarTitle,
   CalendarHeader,
@@ -20,8 +23,12 @@ import {
   CalendarWeekDay,
   CalendarWeekDays,
   ProfileContainer,
-  RightColumn,
 } from './Schedule.styles'
+
+type SelectedDay = {
+  day: number
+  weekDay: number
+}
 
 type Profile = {
   name: string
@@ -34,8 +41,26 @@ interface ScheduleProps {
   profile: Profile
 }
 
+require('dayjs/locale/pt-br')
+
 const Schedule = ({ profile }: ScheduleProps) => {
-  const [schedulingTimesIsOpen, setSchedulingTimesIsOpen] = useState(false)
+  const [selectedDay, setSelectedDay] = useState<SelectedDay | null>(null)
+
+  const currentDate = dayjs().locale('pt-br')
+
+  const daysInMonth = currentDate.daysInMonth()
+
+  const formattedMonth = currentDate.format('MMMM')
+  const formattedYear = currentDate.format('YYYY')
+
+  const days = Array.from({ length: daysInMonth }).map((_, index) => ({
+    day: index + 1,
+    weekDay: currentDate.date(index + 1).day() + 1,
+  }))
+
+  const emptyDaysBeforeTheFirstDay = Array.from({
+    length: days[0].weekDay - 1,
+  }).map((_, index) => index)
 
   return (
     <Container>
@@ -47,11 +72,11 @@ const Schedule = ({ profile }: ScheduleProps) => {
         <Text>{profile.bio}</Text>
       </ProfileContainer>
 
-      <Calendar schedulingTimesIsOpen={schedulingTimesIsOpen}>
+      <Calendar schedulingTimesIsOpen={!!selectedDay}>
         <LeftColumn>
           <CalendarHeader>
             <CalendarTitle>
-              Setembro <span>2022</span>
+              {formattedMonth} <span>{formattedYear}</span>
             </CalendarTitle>
 
             <CalendarActions>
@@ -74,51 +99,18 @@ const Schedule = ({ profile }: ScheduleProps) => {
             <Text size="sm">SEX.</Text>
             <Text size="sm">SÁB.</Text>
 
-            <CalendarWeekDay
-              onClick={() => setSchedulingTimesIsOpen((state) => !state)}
-            >
-              1
-            </CalendarWeekDay>
-            <CalendarWeekDay disabled>2</CalendarWeekDay>
-            <CalendarWeekDay>3</CalendarWeekDay>
-            <CalendarWeekDay />
-            <CalendarWeekDay />
+            {emptyDaysBeforeTheFirstDay.map((emptyDay) => (
+              <CalendarWeekDay key={emptyDay} disabled />
+            ))}
 
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
-            <CalendarWeekDay />
+            {days.map(({ day, weekDay }) => (
+              <CalendarWeekDay
+                key={day}
+                onClick={() => setSelectedDay({ day, weekDay })}
+              >
+                {day}
+              </CalendarWeekDay>
+            ))}
           </CalendarWeekDays>
         </LeftColumn>
 
