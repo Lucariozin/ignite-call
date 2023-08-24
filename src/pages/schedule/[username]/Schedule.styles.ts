@@ -26,11 +26,13 @@ export const ProfileContainer = styled('div', {
 })
 
 export const Calendar = styled('div', {
+  position: 'relative',
+
   display: 'flex',
-  justifyContent: 'center',
   alignItems: 'flex-start',
 
   width: '100%',
+  maxWidth: '51.25rem',
 
   margin: '0 auto',
   marginTop: '$6',
@@ -38,6 +40,8 @@ export const Calendar = styled('div', {
   variants: {
     schedulingTimesIsOpen: {
       true: {
+        justifyContent: 'space-between',
+
         '& > div:first-child': {
           borderRight: 'none',
           borderTopRightRadius: '0',
@@ -55,15 +59,16 @@ export const Calendar = styled('div', {
         },
       },
       false: {
-        '& > div:first-child': {
-          marginLeft: '3.125rem',
-        },
+        justifyContent: 'center',
       },
     },
   },
 })
 
 export const LeftColumn = styled(Box, {
+  position: 'relative',
+  zIndex: '2',
+
   display: 'flex',
   flexDirection: 'column',
   gap: '$6',
@@ -72,16 +77,20 @@ export const LeftColumn = styled(Box, {
   maxWidth: '33.75rem',
 
   padding: '$6',
-
-  transition: 'margin 0.3s ease-in-out',
 })
 
 export const RightColumn = styled(Box, {
-  opacity: '0',
-  width: '0',
+  position: 'absolute',
 
+  bottom: '0',
+  top: '0',
+  right: '0',
+  zIndex: '1',
+
+  opacity: '0',
+
+  width: '100%',
   maxWidth: '17.5rem',
-  maxHeight: '30.45rem',
   padding: '$6',
 
   borderLeft: '1px solid $colors$gray600',
@@ -157,39 +166,5 @@ export const CalendarWeekDays = styled('div', {
     textAlign: 'center',
     marginBottom: '$3',
     color: '$gray200',
-  },
-})
-
-export const CalendarWeekDay = styled('button', {
-  all: 'unset',
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  width: '100%',
-  aspectRatio: '1 / 1',
-
-  fontFamily: '$default',
-
-  backgroundColor: '$gray600',
-  borderRadius: '$sm',
-
-  cursor: 'pointer',
-  userSelect: 'none',
-  transition: 'all 0.1s',
-
-  '&:disabled': {
-    opacity: '0.5',
-    backgroundColor: 'transparent',
-    cursor: 'default',
-  },
-
-  '&:not(:disabled):hover': {
-    backgroundColor: '$gray500',
-  },
-
-  '&:focus-visible': {
-    boxShadow: '0 0 0 1px $colors$ignite500',
   },
 })

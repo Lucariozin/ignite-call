@@ -1,13 +1,31 @@
+import type { Dayjs } from 'dayjs'
+
 import { Text } from '@ignite-ui-lucariozin/react'
 
 import { Container, TimeItem, Times } from './SchedulingTimes.styles'
 
-export const SchedulingTimes = () => {
+interface SchedulingTimesProps {
+  selectedDay?: number
+  currentDate: Dayjs
+}
+
+export const SchedulingTimes = ({
+  selectedDay,
+  currentDate,
+}: SchedulingTimesProps) => {
+  const formattedWeekDay = currentDate.date(selectedDay ?? 0).format('dddd')
+
+  const formattedDayOfMonth = currentDate
+    .date(selectedDay ?? 0)
+    .format('DD [de] MMMM')
+
   return (
     <Container>
-      <Text>
-        terça-feira, <span>20 de setembro</span>
-      </Text>
+      {!!selectedDay && (
+        <Text>
+          {formattedWeekDay}, <span>{formattedDayOfMonth}</span>
+        </Text>
+      )}
 
       <Times>
         <TimeItem>0:00h</TimeItem>

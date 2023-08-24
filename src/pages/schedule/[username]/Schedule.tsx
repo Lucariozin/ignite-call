@@ -9,6 +9,7 @@ import { api } from '@/services/api'
 import { CaretLeft, CaretRight } from 'phosphor-react'
 import { Avatar, Heading, Text } from '@ignite-ui-lucariozin/react'
 
+import { CalendarWeekDay } from './components/CalendarWeekDay'
 import { SchedulingTimes } from './components/SchedulingTimes'
 
 import {
@@ -20,7 +21,6 @@ import {
   CalendarTitle,
   CalendarHeader,
   CalendarActions,
-  CalendarWeekDay,
   CalendarWeekDays,
   ProfileContainer,
 } from './Schedule.styles'
@@ -46,7 +46,7 @@ require('dayjs/locale/pt-br')
 const Schedule = ({ profile }: ScheduleProps) => {
   const [selectedDay, setSelectedDay] = useState<SelectedDay | null>(null)
 
-  const currentDate = dayjs().locale('pt-br')
+  const [currentDate, setCurrentDate] = useState(dayjs().locale('pt-br'))
 
   const daysInMonth = currentDate.daysInMonth()
 
@@ -61,6 +61,28 @@ const Schedule = ({ profile }: ScheduleProps) => {
   const emptyDaysBeforeTheFirstDay = Array.from({
     length: days[0].weekDay - 1,
   }).map((_, index) => index)
+
+  const selectDay = (
+    params: { day: number; weekDay: number } | null = null,
+  ) => {
+    setSelectedDay(params)
+  }
+
+  const handleNextMonth = () => {
+    selectDay(null)
+
+    const newCurrentDate = currentDate.add(1, 'month')
+
+    setCurrentDate(newCurrentDate)
+  }
+
+  const handlePreviousMonth = () => {
+    selectDay(null)
+
+    const newCurrentDate = currentDate.subtract(1, 'month')
+
+    setCurrentDate(newCurrentDate)
+  }
 
   return (
     <Container>
@@ -80,11 +102,11 @@ const Schedule = ({ profile }: ScheduleProps) => {
             </CalendarTitle>
 
             <CalendarActions>
-              <ActionButton>
+              <ActionButton onClick={handlePreviousMonth}>
                 <CaretLeft size={20} />
               </ActionButton>
 
-              <ActionButton>
+              <ActionButton onClick={handleNextMonth}>
                 <CaretRight size={20} />
               </ActionButton>
             </CalendarActions>
@@ -103,19 +125,22 @@ const Schedule = ({ profile }: ScheduleProps) => {
               <CalendarWeekDay key={emptyDay} disabled />
             ))}
 
-            {days.map(({ day, weekDay }) => (
+            {days.map((day) => (
               <CalendarWeekDay
-                key={day}
-                onClick={() => setSelectedDay({ day, weekDay })}
-              >
-                {day}
-              </CalendarWeekDay>
+                key={day.day}
+                day={day}
+                selectDay={selectDay}
+                selectedDay={selectedDay}
+              />
             ))}
           </CalendarWeekDays>
         </LeftColumn>
 
         <RightColumn>
-          <SchedulingTimes />
+          <SchedulingTimes
+            selectedDay={selectedDay?.day}
+            currentDate={currentDate}
+          />
         </RightColumn>
       </Calendar>
     </Container>
