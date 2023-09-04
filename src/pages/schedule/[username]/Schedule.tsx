@@ -44,9 +44,9 @@ interface ScheduleProps {
 require('dayjs/locale/pt-br')
 
 const Schedule = ({ profile }: ScheduleProps) => {
-  const [selectedDay, setSelectedDay] = useState<SelectedDay | null>(null)
-
   const [currentDate, setCurrentDate] = useState(dayjs().locale('pt-br'))
+
+  const [selectedDay, setSelectedDay] = useState<SelectedDay | null>(null)
 
   const daysInMonth = currentDate.daysInMonth()
 

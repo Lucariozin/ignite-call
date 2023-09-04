@@ -36,3 +36,8 @@ export type GetProfileByUsername = (params: { username: string }) => Promise<
     }
   }>
 >
+
+export type GetAvailableSchedulingTimes = (params: {
+  username: string
+  date: string
+}) => Promise<DefaultResponse>

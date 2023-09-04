@@ -1,3 +1,8 @@
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+
+import { api } from '@/services/api'
+
 import type { Dayjs } from 'dayjs'
 
 import { Text } from '@ignite-ui-lucariozin/react'
@@ -13,6 +18,31 @@ export const SchedulingTimes = ({
   selectedDay,
   currentDate,
 }: SchedulingTimesProps) => {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!selectedDay) return
+
+    const getAvailableSchedulingTimes = async () => {
+      const username = String(router.query.username)
+
+      const selectedDate = currentDate
+        .set('date', selectedDay)
+        .toDate()
+        .toISOString()
+        .split('T')[0]
+
+      const response = await api.getAvailableSchedulingTimes({
+        username,
+        date: selectedDate,
+      })
+
+      console.log(response.data)
+    }
+
+    getAvailableSchedulingTimes()
+  }, [selectedDay, currentDate, router.query])
+
   const formattedWeekDay = currentDate.date(selectedDay ?? 0).format('dddd')
 
   const formattedDayOfMonth = currentDate

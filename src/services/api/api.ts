@@ -5,6 +5,7 @@ import type {
   UpdateUserProfile,
   GetProfileByUsername,
   SaveUserTimeIntervals,
+  GetAvailableSchedulingTimes,
 } from './api.types'
 
 const getProfileByUsername: GetProfileByUsername = async ({ username }) => {
@@ -69,9 +70,28 @@ const updateUserProfile: UpdateUserProfile = async ({ profile }) => {
   }
 }
 
+const getAvailableSchedulingTimes: GetAvailableSchedulingTimes = async ({
+  username,
+  date,
+}) => {
+  try {
+    const response = await apiHTTP.get(
+      `/users/availability/${username}?date=${date}`,
+    )
+
+    return {
+      data: response.data,
+      status: 'success',
+    }
+  } catch (error: any) {
+    return { data: error?.response?.data ?? null, status: 'failed' }
+  }
+}
+
 export const api = {
   createUser,
   updateUserProfile,
   getProfileByUsername,
   saveUserTimeIntervals,
+  getAvailableSchedulingTimes,
 }
